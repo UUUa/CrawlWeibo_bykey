@@ -26,7 +26,7 @@ def getweibo():
 	keyw = '华中科技大学'	  #关键字
 	name = 'key : ' + keyw
 
-	pattern = re.compile(r'<a.+a>')			#去除网页链接
+	pattern = re.compile(r'<a[^>]*>([^<]*)</a>')			#去除网页链接
 	pattern_name = re.compile(r'https://wei[^"]+')	#提取个人主页
 	pattern_loc = re.compile(r'[男女]/[^ ]+')    #地区信息
 	pattern_time = re.compile(r'\d.+来')			#时间信息
@@ -68,7 +68,7 @@ def getweibo():
 					result = result + loc + ' '
 
 				#整理标签内容
-				text = str(info).replace('<span class="kt">华中科技大学</span>','华中科技大学').replace('<span class="ctt">','').replace('</span>','')
+				text = str(info).replace('<span class="kt">'+keyw+'</span>',keyw).replace('<span class="ctt">','').replace('</span>','')
 				text = pattern.sub('',text)
 				text = text +'\n\n'
 				result = result + text
